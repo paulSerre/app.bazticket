@@ -1,0 +1,95 @@
+<div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-12">
+          <zxing-scanner
+          (scanSuccess)="scanSuccessHandler($event)"
+          [style.display]="scannerEnabled? 'block': 'none'"></zxing-scanner>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class ="row">
+            <div class="col-md-12">
+              <form (ngSubmit)="onSubmit()" #f="ngForm">
+                <input placeholder="Order ID" type="text" id="orderId" class="form-control"
+                name="orderId" [(ngModel)]="orderId" required>
+                <button class="btn btn-primary" type="submit" [disabled]="!f.valid || prevOrderId==orderId">Search</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="row" id="order">
+
+            <div class="col-md-12">
+
+              <div *ngIf="isLoading; else result">
+                <mat-spinner></mat-spinner>
+              </div>
+
+              <ng-template #result>
+
+                <div *ngIf="order == undefined;else foundData">
+                  There is no such ticket in the database.
+                </div>
+
+                <ng-template #foundData>
+                  <h2>{{order.billing.first_name}} {{order.billing.last_name}}'s order</h2>
+                  <table class="table table-strip" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of order.line_items">
+                        <td>{{item.name}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.price}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h2>Entries</h2>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Entry n°</th>
+                        <th scope="col">Hour</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let item of entries; let i = index;">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{item.timestamp}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="row" id="buttons">
+                    <button mat-fab color="warn"
+                    (click)="onCancel()">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                    <button *ngIf="(order.line_items[0].quantity > entries.length)" mat-fab color="accent"
+                    (click)="onAddEntry()">
+                      <mat-icon>done</mat-icon>
+                    </button>
+                  </div>
+
+                </ng-template>
+
+              </ng-template>
+
+            </div>
+            
+          </div>
+          
+
+
+        </div>
+      </div>
+</div>
