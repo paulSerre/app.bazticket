@@ -6,7 +6,7 @@ import auth from '../../auth_config.json';
 
 export const environment = {
   production: false,
-  BACKEND_HTTPS_SERVER: "http://localhost:5000/",
+  BACKEND_HTTPS_SERVER: "https://api.bazticket.com/",
   auth: {
     ...auth,
     redirectUri: window.location.origin,
