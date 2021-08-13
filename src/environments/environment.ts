@@ -2,15 +2,18 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import auth from '../../auth_config.json';
-
 export const environment = {
   production: false,
   BACKEND_HTTPS_SERVER: "https://api.bazticket.com/",
-  auth: {
-    ...auth,
-    redirectUri: window.location.origin,
-  },
+  firebaseConfig: {
+    apiKey: "AIzaSyAlCJnN2zRrb-xn0hHJZ0lzwOqJFoDeXLA",
+    authDomain: "app-entry-manager.firebaseapp.com",
+    projectId: "app-entry-manager",
+    storageBucket: "app-entry-manager.appspot.com",
+    messagingSenderId: "944572909753",
+    appId: "1:944572909753:web:173124811e646dc0bf3368",
+    measurementId: "G-RGRJGMR28Q"
+  }
 };
 
 /*

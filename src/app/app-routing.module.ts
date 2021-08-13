@@ -1,12 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SignInComponent } from './component/sign-in/sign-in.component';
 import { ScannerComponent } from './component/scanner/scanner.component';
 import { ViewEntriesComponent } from './component/view-entries/view-entries.component';
 
-import { AuthGuard } from '@auth0/auth0-angular';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
+  { 
+    path: '', 
+    redirectTo: '/sign-in',
+    pathMatch: 'full',
+  },
+  { 
+    path: 'sign-in', 
+    component: SignInComponent,
+  },
   { 
     path: 'scanner', 
     component: ScannerComponent,
@@ -17,11 +27,7 @@ const routes: Routes = [
     component: ViewEntriesComponent,
     canActivate: [AuthGuard],
   },
-  { 
-    path: '', 
-    component: ScannerComponent,
-    canActivate: [AuthGuard], 
-  },
+
 ];
 
 @NgModule({

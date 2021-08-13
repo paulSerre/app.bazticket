@@ -11,26 +11,28 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input'
 
 // Auth0 SDK module
-import { AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppComponent } from './app.component';
 import { ScannerComponent } from './component/scanner/scanner.component';
 import { ViewEntriesComponent } from './component/view-entries/view-entries.component';
-import { LoginButtonComponent } from './component/login-button/login-button.component';
-import { LogoutButtonComponent } from './component/logout-button/logout-button.component';
-import { AuthenticationButtonComponent } from './component/authentication-button/authentication-button.component';
+import { SignInComponent } from './component/sign-in/sign-in.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ScannerComponent,
     ViewEntriesComponent,
-    LoginButtonComponent,
-    LogoutButtonComponent,
-    AuthenticationButtonComponent
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +43,11 @@ import { AuthenticationButtonComponent } from './component/authentication-button
     MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,
-    AuthModule.forRoot({
-      ...env.auth,
-    }),
+    MatCardModule,
+    MatInputModule,
+    AngularFireModule.initializeApp(env.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

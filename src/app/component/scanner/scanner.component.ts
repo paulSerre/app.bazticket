@@ -1,7 +1,5 @@
-import { formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators'
