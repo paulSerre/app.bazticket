@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+
+//Form
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule }  from '@angular/material/form-field';
 
 //Scanner QR code
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
@@ -23,7 +27,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppComponent } from './app.component';
 import { ScannerComponent } from './component/scanner/scanner.component';
 import { ViewEntriesComponent } from './component/view-entries/view-entries.component';
+
+// Auth
 import { SignInComponent } from './component/sign-in/sign-in.component';
+import { LoginButtonComponent } from './component/login-button/login-button.component';
+import { LogoutButtonComponent } from './component/logout-button/logout-button.component';
+import { AuthenticationButtonComponent } from './component/authentication-button/authentication-button.component';
 
 
 
@@ -32,12 +41,18 @@ import { SignInComponent } from './component/sign-in/sign-in.component';
     AppComponent,
     ScannerComponent,
     ViewEntriesComponent,
-    SignInComponent
+    SignInComponent,
+    LoginButtonComponent,
+    LogoutButtonComponent,
+    AuthenticationButtonComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
     HttpClientModule,
     ZXingScannerModule,
     MatProgressSpinnerModule,

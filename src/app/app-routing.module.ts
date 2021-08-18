@@ -6,6 +6,7 @@ import { ScannerComponent } from './component/scanner/scanner.component';
 import { ViewEntriesComponent } from './component/view-entries/view-entries.component';
 
 import { AuthGuard } from './shared/auth.guard';
+import { AnonymousGuard } from './shared/anonymous.guard';
 
 const routes: Routes = [
   { 
@@ -16,6 +17,7 @@ const routes: Routes = [
   { 
     path: 'sign-in', 
     component: SignInComponent,
+    //canActivate: [AnonymousGuard]
   },
   { 
     path: 'scanner', 
@@ -27,6 +29,10 @@ const routes: Routes = [
     component: ViewEntriesComponent,
     canActivate: [AuthGuard],
   },
+  { 
+    path: '**', 
+    redirectTo: ''
+  }
 
 ];
 

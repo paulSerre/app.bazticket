@@ -25,14 +25,22 @@
 
             <div class="col-md-12">
 
-              <div *ngIf="isLoading; else result">
-                <mat-spinner></mat-spinner>
+              <div class="row" *ngIf="isLoading; else result">
+                <div class="col-md-12" id="loading">
+                  <mat-spinner></mat-spinner>
+                </div>
               </div>
 
               <ng-template #result>
 
-                <div *ngIf="order == undefined;else foundData">
-                  There is no such ticket in the database.
+                <div class="row" *ngIf="order == undefined;else foundData">
+                  <div class="col-md-12">
+                    <p>There is no such ticket in the database.</p>
+                    <button 
+                    mat-raised-button color="warn"
+                    (click)="onCancel()"
+                    [disabled]="scannerEnabled">Cancel</button>
+                  </div>
                 </div>
 
                 <ng-template #foundData>
@@ -54,7 +62,7 @@
                     </tbody>
                   </table>
                   <h2>Entries</h2>
-                  <table class="table table-striped">
+                  <table class="table table-striped" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" border="1">
                     <thead>
                       <tr>
                         <th scope="col">Entry n°</th>
@@ -64,7 +72,7 @@
                     <tbody >
                       <tr *ngFor="let item of entries; let i = index;">
                         <th scope="row">{{i+1}}</th>
-                        <td>{{item.timestamp}}</td>
+                        <td>{{item.timestamp | date:'dd/MM/YY hh:mm:ss'}}</td>
                       </tr>
                     </tbody>
                   </table>

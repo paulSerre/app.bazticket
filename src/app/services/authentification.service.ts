@@ -1,29 +1,28 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from '@angular/router';
+
+
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
 
+  user$: Observable<any>;
+
   constructor(
     private angularFireAuth: AngularFireAuth,
-    private ngZone: NgZone,
     private router: Router
   ) {
-    this.angularFireAuth.authState.subscribe(user => {
-      if (user) 
-        localStorage.setItem('user', JSON.stringify(user));
-    })
-  } 
+    this.user$ = this.angularFireAuth.authState;
+   } 
 
   signIn(email: string, password: string) {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password)
-    .then((result) => {
-      this.ngZone.run(() => {
-        this.router.navigate(['scanner']);
-      });
+    .then((user) => {
+      this.router.navigate(['scanner']);
     }).catch((error) => {
       window.alert(error.message)
     })
@@ -37,11 +36,6 @@ export class AuthentificationService {
       })
   }
 
-  get isLoggedIn(): boolean {
-    let user: any = localStorage.getItem('user');
-    if (user) 
-      user = JSON.parse(user);
-    return (user !== null && user.emailVerified !== false) ? true : false;
-  }
+
 
 }

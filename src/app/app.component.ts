@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthentificationService } from './services/authentification.service';
 
 
 
@@ -8,5 +10,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'entry-manager-app';
+
+  title = 'Bazticket entry manager';
+  user$: Observable<any>;
+
+  constructor(
+    private authService: AuthentificationService
+  ) {
+    this.user$ = this.authService.user$;
+  }
 }

@@ -48,12 +48,15 @@ export class ScannerComponent implements OnInit {
       this.entriesService.getEntriesByOrderId(+this.orderId).pipe(catchError(error => {
         this.entries = [];
         return of(error);
-      })) // In case no entries have been added, we have to handle the not found error
+      })) // In case no entries have been added, we have to handle the not found error and continue
     ]).subscribe(
     (response) => {
       this.isLoading = false;
       this.order = response[0];
-      if (!(response[1] instanceof HttpErrorResponse)) this.entries = response[1];
+      if (!(response[1] instanceof HttpErrorResponse)) {
+        this.entries = response[1];
+        console.log(this.entries);
+      } 
     },
     (error) => {
       console.log(error);
@@ -75,8 +78,6 @@ export class ScannerComponent implements OnInit {
         console.log(error);
       }
     )
-
-
   }
 
   onCancel() {
